@@ -5,8 +5,8 @@
 {% endblock metatitle %}
 
 {% block main %}
-	<section>
-		<h2>Toutes les catégories</h2>
+	<section class="container">
+		<h2>Tout les produits</h2>
 		<div class="catalog-list">
 			{% for product in products %}
 				<a href="{{ path('show-product', {'id': product.id}) }}">
