@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+	{{ category.title }}
+{% endblock metatitle %}
+
+{% block main %}
+	<main>
+		<section>
+			<h2>{{ category.title }}</h2>
+			<div>
+				{# Donne une classe par la donnée 'color' donné aux catégories dans la bdd #}
+				<article class="">
+					<h3>{{ category.title }}</h3>
+					<p>
+						<b>{{ category.description }}</b>
+					</p>
+					<span>Publié le
+						{{ category.createdAt | date('d/m/Y') }}</span>
+					{% if category.updatedAt %}
+                        <span>{{ category.updatedAt | date('d/m/Y') }}</span>
+                    {% endif %}
+					</article>
+				</section>
+			</main>
+		{% endblock main %}

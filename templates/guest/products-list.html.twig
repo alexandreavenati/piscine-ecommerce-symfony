@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+	Tout les produits
+{% endblock metatitle %}
+
+{% block main %}
+	<section>
+		<h2>Toutes les catégories</h2>
+		<div>
+			{% for product in products %}
+				{% if product.isPublished %}
+					<a href="{{ path('show-product', {'id': product.id}) }}">
+						<article>
+							<h3>{{ product.title }}</h3>
+						</article>
+					</a>
+				{% endif %}
+			{% endfor %}
+		</div>
+
+	</section>
+{% endblock main %}
