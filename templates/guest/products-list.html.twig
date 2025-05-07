@@ -9,13 +9,11 @@
 		<h2>Toutes les catégories</h2>
 		<div class="catalog-list">
 			{% for product in products %}
-				{% if product.isPublished %}
-					<a href="{{ path('show-product', {'id': product.id}) }}">
-						<article class="category {{ product.category.color }}">
-							<h3>{{ product.title }}</h3>
-						</article>
-					</a>
-				{% endif %}
+				<a href="{{ path('show-product', {'id': product.id}) }}">
+					<article class="category {{ product.category.color }}">
+						<h3>{{ product.title }}</h3>
+					</article>
+				</a>
 			{% endfor %}
 		</div>
 

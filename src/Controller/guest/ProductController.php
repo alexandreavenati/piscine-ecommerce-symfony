@@ -14,7 +14,7 @@ class ProductController extends AbstractController {
     public function displayListCategory(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
 
-        $products = $productRepository->findAll();
+        $products = $productRepository->findBy(['isPublished' => true]);
         $category = $categoryRepository->findAll();
 
         return $this->render('guest/products-list.html.twig', ['products' => $products, 'categories' => $category]);
