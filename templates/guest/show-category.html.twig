@@ -6,11 +6,11 @@
 
 {% block main %}
 	<main>
-		<section>
+		<section class="detail-wrapper">
 			<h2>{{ category.title }}</h2>
 			<div>
 				{# Donne une classe par la donnée 'color' donné aux catégories dans la bdd #}
-				<article class="">
+				<article class="category {{ category.color}}">
 					<h3>{{ category.title }}</h3>
 					<p>
 						<b>{{ category.description }}</b>
@@ -18,9 +18,10 @@
 					<span>Publié le
 						{{ category.createdAt | date('d/m/Y') }}</span>
 					{% if category.updatedAt %}
-                        <span>{{ category.updatedAt | date('d/m/Y') }}</span>
-                    {% endif %}
-					</article>
-				</section>
-			</main>
-		{% endblock main %}
+						<span>{{ category.updatedAt | date('d/m/Y') }}</span>
+					{% endif %}
+				</article>
+			</div>
+		</section>
+	</main>
+{% endblock main %}

@@ -10,7 +10,7 @@
 			<h2>{{ product.title }}</h2>
 			<div>
 				{# Donne une classe par la donnée 'color' donné aux catégories dans la bdd #}
-				<article class="">
+				<article class="category {{ product.category.color }}">
 					<h3>{{ product.title }}</h3>
 					<p>
 						<b>{{ product.description }}</b>
@@ -18,9 +18,10 @@
 					<span>Publié le
 						{{ product.createdAt | date('d/m/Y') }}</span>
 					{% if product.updatedAt %}
-                        <span>{{ product.updatedAt | date('d/m/Y') }}</span>
-                    {% endif %}
-					</article>
-				</section>
-			</main>
-		{% endblock main %}
+						<span>{{ product.updatedAt | date('d/m/Y') }}</span>
+					{% endif %}
+				</article>
+			</div>
+		</section>
+	</main>
+{% endblock main %}

@@ -7,10 +7,10 @@
 {% block main %}
 	<section>
 		<h2>Toutes les catégories</h2>
-		<div>
+		<div class="catalog-list">
 			{% for category in categories %}
 				<a href="{{ path('show-category', {'id': category.id}) }}">
-					<article>
+					<article class= "category {{ category.color }}">
 						<h3>{{ category.title }}</h3>
 					</article>
 				</a>

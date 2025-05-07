@@ -7,11 +7,11 @@
 {% block main %}
 	<section>
 		<h2>Toutes les catégories</h2>
-		<div>
+		<div class="catalog-list">
 			{% for product in products %}
 				{% if product.isPublished %}
 					<a href="{{ path('show-product', {'id': product.id}) }}">
-						<article>
+						<article class="category {{ product.category.color }}">
 							<h3>{{ product.title }}</h3>
 						</article>
 					</a>
