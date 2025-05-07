@@ -1,7 +1,30 @@
 {% extends 'base.html.twig' %}
 
+{% block metatitle %}
+    Accueil - La Piscine
+{% endblock %}
+
 {% block main %}
-    <section>
-        <h1>Bienvenue sur le site de e-commerce de la Piscine</h1>
+<div class="home-page">
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bienvenue sur <span>La Piscine</span> 🏊</h1>
+            <p>La boutique en ligne dédiée à l’univers de la natation, du bien-être et des loisirs aquatiques.</p>
+            <a href="#" class="btn">Découvrez bientôt nos produits</a>
+        </div>
     </section>
-{% endblock main %}
+
+    <section class="about">
+        <h2>Qui sommes-nous ?</h2>
+        <p>
+            La Piscine est un site e-commerce en construction qui proposera une sélection de produits de qualité 
+            pour les passionnés de natation, les amateurs de détente et tous ceux qui aiment l’eau.
+        </p>
+        <p>
+            Restez connecté ! Nous préparons des collections exclusives, des conseils bien-être, et des offres spéciales pour le lancement.
+        </p>
+    </section>
+
+</div>
+{% endblock %}
