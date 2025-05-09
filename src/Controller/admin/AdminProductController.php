@@ -98,11 +98,22 @@ class AdminProductController extends AbstractController
         $categories = $categoryRepository->findAll();
 
         if ($request->isMethod('POST')) {
+            
+            // Récupère les données envoyées via les 'name' du formulaire
             $title = $request->request->get('title');
             $description = $request->request->get('description');
             $price = $request->request->get('price');
-            $isPublished = $request->request->get('is-published') === 'on' ? true : false;
+
+            if ($request->request->get('is-published') === 'on') {
+                $isPublished = true;
+            } else {
+                $isPublished = false;
+            }
+
+            // On récupère l'id de la catégorie sélectionnée
             $categoryId = $request->request->get('category');
+
+            // On récupère la catégorie complète liée à l'id
             $category = $categoryRepository->find($categoryId);
 
             if (!$category) {
@@ -111,7 +122,7 @@ class AdminProductController extends AbstractController
             }
 
             try {
-                $product = new Product($title, $description, $price, $isPublished,  $category);
+                $product->update($title, $description, $price, $isPublished, $category);
                 $entityManager->persist($product);
                 $entityManager->flush();
 
