@@ -48,6 +48,7 @@ class Product
 
         // données remplies automatiquement lors de l'envoi
         $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
