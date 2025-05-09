@@ -1,0 +1,31 @@
+<footer class="site-footer">
+	<div class="footer-container">
+		<div class="footer-column">
+			<h4>À propos</h4>
+			<ul>
+				<li><a href="#">Notre histoire</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</div>
+		<div class="footer-column">
+			<h4>Catégories</h4>
+			<ul>
+				<li><a href="{{ path('product-list') }}">Produits</a></li>
+				<li><a href="#">Accessoires</a></li>
+				<li><a href="#">Bien-être</a></li>
+			</ul>
+		</div>
+		<div class="footer-column">
+			<h4>Suivez-nous</h4>
+			<ul>
+				<li><a href="#">Instagram</a></li>
+				<li><a href="#">Facebook</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		&copy;
+		{{ "now"|date("Y") }}
+		La Piscine - Tous droits réservés.
+	</div>
+</footer>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block metatitle %}{% endblock metatitle %}
+		</title>
+		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+	</head>
+	<body>
+
+		{% include 'admin/partial/_header.html.twig' %}
+
+		<main>
+			{% block main %}{% endblock main %}
+
+			<section>
+				{% block flashMessage %}{% endblock flashMessage %}
+			</section>
+		</main>
+
+
+		{% include 'admin/partial/_footer.html.twig' %}
+	</body>
+</html>
