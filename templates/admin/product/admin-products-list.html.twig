@@ -18,6 +18,7 @@
                         <th>Prix (€)</th>
                         <th>Créé le</th>
                         <th>Modifié le</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,11 +29,19 @@
                             <td>{{ product.category.title }}</td>
                             <td>{{ product.price }}</td>
                             <td>{{ product.createdAt | date('d/m/Y H:i') }}</td>
-							{% if product.updatedAt is not null %}
-                            <td>{{ product.updatedAt | date('d/m/Y H:i') }}</td>
-							{% else %}
-							<td>Jamais modifié</td>
-							{% endif %}
+                            <td>
+                                {% if product.updatedAt is not null %}
+                                    {{ product.updatedAt | date('d/m/Y H:i') }}
+                                {% else %}
+                                    Jamais modifié
+                                {% endif %}
+                            </td>
+                            <td>
+							<a href="{{ path('admin-update-product', {'id': product.id}) }}" class="btn btn-edit">✏️ Modifier</a>
+                                <form method="post" action="{{ path('admin-delete-product', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+                                    <button type="submit" class="btn btn-delete">🗑️ Supprimer</button>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

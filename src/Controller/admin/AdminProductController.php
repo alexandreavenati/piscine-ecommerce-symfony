@@ -72,4 +72,57 @@ class AdminProductController extends AbstractController
 
         return $this->render('admin/product/admin-products-list.html.twig', ['products' => $products, 'categories' => $category]);
     }
+
+    #[Route('/supprimer-produit/{id}', name: 'admin-delete-product')]
+    public function deleteProduct(ProductRepository $productRepository, EntityManagerInterface $entityManager, $id)
+    {
+
+        $product = $productRepository->find($id);
+        $entityManager->remove($product);
+        $entityManager->flush();
+
+        $this->addFlash("product_deleted", "Le produit a été supprimé");
+
+        return $this->redirectToRoute('admin-product-list');
+    }
+
+    #[Route('/admin/update-product/{id}', name: 'admin-update-product')]
+    public function displayUpdateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, ProductRepository $productRepository, $id)
+    {
+        $product = $productRepository->find($id);
+        if (!$product) {
+            $this->addFlash('error', 'Produit non trouvé.');
+            return $this->redirectToRoute('admin-product-list');
+        }
+
+        $categories = $categoryRepository->findAll();
+
+        if ($request->isMethod('POST')) {
+            $title = $request->request->get('title');
+            $description = $request->request->get('description');
+            $price = $request->request->get('price');
+            $isPublished = $request->request->get('is-published') === 'on' ? true : false;
+            $categoryId = $request->request->get('category');
+            $category = $categoryRepository->find($categoryId);
+
+            if (!$category) {
+                $this->addFlash('error', 'Catégorie invalide.');
+                return $this->redirectToRoute('admin-update-product', ['id' => $id]);
+            }
+
+            try {
+                $product = new Product($title, $description, $price, $isPublished,  $category);
+                $entityManager->persist($product);
+                $entityManager->flush();
+
+                $this->addFlash('product_updated', 'Produit mis à jour avec succès.');
+                return $this->redirectToRoute('admin-product-list');
+            } catch (Exception $e) {
+                $this->addFlash('error_product_updated', 'Erreur lors de la mise à jour du produit : ' . $e->getMessage());
+                return $this->redirectToRoute('admin-update-product', ['id' => $id]);
+            }
+        }
+
+        return $this->render('admin/product/admin-update-product.html.twig', ['product' => $product, 'categories' => $categories]);
+    }
 }

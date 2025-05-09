@@ -67,6 +67,32 @@ class Product
         $this->updatedAt = new \DateTime();
     }
 
+    // méthode pour modifier/mettre à jour les produits
+    public function update($title, $description, $price, $isPublished, $category) {
+        if (strlen(trim($title)) < 3) {
+
+            throw new Exception('Le titre doit faire plus de 3 caractères');
+        }
+
+        if (strlen(trim($description)) < 5) {
+
+            throw new Exception('La description doit faire plus de 5 caractères');
+        }
+
+        if ($price <= 0) {
+
+            throw new Exception('Le prix doit être strictement supérieur à 0');
+        }
+        // données remplies par l'utilisateur
+        $this->title = $title;
+        $this->description = $description;
+        $this->price = $price;
+        $this->isPublished = $isPublished;
+        $this->category = $category;
+
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
