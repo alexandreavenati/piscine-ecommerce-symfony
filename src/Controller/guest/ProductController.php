@@ -17,7 +17,7 @@ class ProductController extends AbstractController {
         $products = $productRepository->findBy(['isPublished' => true]);
         $category = $categoryRepository->findAll();
 
-        return $this->render('guest/products-list.html.twig', ['products' => $products, 'categories' => $category]);
+        return $this->render('guest/product/products-list.html.twig', ['products' => $products, 'categories' => $category]);
     }
 
     #[Route('/produit/{id}', name: 'show-product')]
@@ -27,6 +27,6 @@ class ProductController extends AbstractController {
         $product = $productRepository->find($id);
         $category = $categoryRepository->findAll();
 
-        return $this->render('guest/show-product.html.twig', ['product' => $product, 'category' => $category]);
+        return $this->render('guest/product/show-product.html.twig', ['product' => $product, 'category' => $category]);
     }
 }
