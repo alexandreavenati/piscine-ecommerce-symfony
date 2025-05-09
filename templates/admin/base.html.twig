@@ -13,11 +13,10 @@
 		{% include 'admin/partial/_header.html.twig' %}
 
 		<main>
-			{% block main %}{% endblock main %}
-
 			<section>
 				{% block flashMessage %}{% endblock flashMessage %}
 			</section>
+			{% block main %}{% endblock main %}
 		</main>
 
 

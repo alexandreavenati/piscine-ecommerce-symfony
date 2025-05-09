@@ -5,14 +5,17 @@ namespace App\Controller\admin;
 use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminProductController extends AbstractController {
+class AdminProductController extends AbstractController
+{
 
-    #[Route('/admin/create-product', name:'admin-create-product')]
-    public function displayCreateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository){
+    #[Route('/admin/create-product', name: 'admin-create-product')]
+    public function displayCreateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository)
+    {
 
         // Récupère toutes les catégories enregistrés dans le tableau de la bdd
         $category = $categoryRepository->findAll();
@@ -24,29 +27,36 @@ class AdminProductController extends AbstractController {
             $title = $request->request->get('title');
             $description = $request->request->get('description');
             $price = $request->request->get('price');
-            
+
             if ($request->request->get('is-published') === 'on') {
-				$isPublished = true;
-			} else {
-				$isPublished = false;
-			}
+                $isPublished = true;
+            } else {
+                $isPublished = false;
+            }
 
             // On récupère l'id de la catégorie sélectionnée
             $categoryId = $request->request->get('category');
 
             // On récupère la catégorie complète liée à l'id
             $category = $categoryRepository->find($categoryId);
-            
-            $product = new Product($title, $description, $price, $isPublished,  $category);
 
-            // sauvegarde le produit créé
-            $entityManager->persist($product);
+            if (!$category) {
+                $this->addFlash('error_product_created', 'La catégorie sélectionnée est invalide.');
+                return $this->redirectToRoute('admin-create-product');
+            }
 
-            // pousse le produit créé dans la base de donnée
-			$entityManager->flush();
-
-            // msg flash
-            $this->addFlash('product_created', 'Produit : "' . $product->getTitle() . '" a été enregistré.');
+            try {
+                $product = new Product($title, $description, $price, $isPublished,  $category);
+                // sauvegarde le produit créé
+                $entityManager->persist($product);
+                // pousse le produit créé dans la base de donnée
+                $entityManager->flush();
+                // msg flash
+                $this->addFlash('product_created', 'Produit : "' . $product->getTitle() . '" a été enregistré.');
+            } catch (Exception $e) {
+                $this->addFlash('error_product_created', 'Erreur lors de la création du produit : ' . $e->getMessage());
+                return $this->redirectToRoute('admin-create-product');
+            }
         }
 
         return $this->render('admin/product/create-product.html.twig', ['categories' => $category]);
