@@ -39,10 +39,10 @@ class AdminProductController extends AbstractController {
             
             $product = new Product($title, $description, $price, $isPublished,  $category);
 
-            // sauvegarde l'article créé
+            // sauvegarde le produit créé
             $entityManager->persist($product);
 
-            // pousse l'article créé dans la base de donnée
+            // pousse le produit créé dans la base de donnée
 			$entityManager->flush();
 
             // msg flash
