@@ -64,7 +64,6 @@ class Product
 
         // données remplies automatiquement lors de l'envoi
         $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
     }
 
     // méthode pour modifier/mettre à jour les produits
