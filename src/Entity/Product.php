@@ -40,28 +40,25 @@ class Product
     // méthode pour créer un produit
     public function __construct($title, $description, $price, $isPublished, $category)
     {
-        // données envoyées par l'utilisateur
-        $this->title = $title;
 
-        if(strlen(trim($title)) < 3) {
+        if (strlen(trim($title)) < 3) {
 
             throw new Exception('Le titre doit faire plus de 3 caractères');
         }
 
-        $this->description = $description;
-
-        if(strlen(trim($description)) < 5){
+        if (strlen(trim($description)) < 5) {
 
             throw new Exception('La description doit faire plus de 5 caractères');
         }
 
-        $this->price = $price;
-
-        if($price <= 0){
+        if ($price <= 0) {
 
             throw new Exception('Le prix doit être strictement supérieur à 0');
         }
-
+        // données envoyées par l'utilisateur
+        $this->title = $title;
+        $this->description = $description;
+        $this->price = $price;
         $this->isPublished = $isPublished;
         $this->category = $category;
 
