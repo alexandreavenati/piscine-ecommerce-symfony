@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block metatitle %}
+    Liste des produits
+{% endblock metatitle %}
+
+{% block main %}
+    <section class="container">
+        <h2>Liste des produits</h2>
+
+        {% if products is not empty %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Catégorie</th>
+                        <th>Prix (€)</th>
+                        <th>Créé le</th>
+                        <th>Modifié le</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.title }}</td>
+                            <td>{{ product.category.title }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.createdAt | date('d/m/Y H:i') }}</td>
+							{% if product.updatedAt is not null %}
+                            <td>{{ product.updatedAt | date('d/m/Y H:i') }}</td>
+							{% else %}
+							<td>Jamais modifié</td>
+							{% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun produit enregistré pour le moment.</p>
+        {% endif %}
+    </section>
+{% endblock main %}
