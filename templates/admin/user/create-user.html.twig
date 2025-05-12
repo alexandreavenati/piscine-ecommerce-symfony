@@ -1,0 +1,29 @@
+{% extends 'guest/base.html.twig' %}
+
+{% block metatitle %}
+	Créez un compte !
+{% endblock metatitle %}
+
+{% block main %}
+	<section class="container">
+
+        <h1>Crée un compte administrateur</h1>
+
+		<form method="POST" class="product-form">
+
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" name="email">
+			</div>
+
+			<div class="form-group">
+				<label for="password">Mot de passe</label>
+				<input type="password" name="password">
+			</div>
+
+			<div>
+                <button type="submit">Créer l'admin</button>
+            </div>
+		</form>
+	</section>
+{% endblock main %}
