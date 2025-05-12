@@ -5,9 +5,16 @@
 {% endblock metatitle %}
 
 {% block main %}
+
+	{% for message in app.flashes('admin_created') %}
+		<div class="success-message">
+			{{ message }}
+		</div>
+	{% endfor %}
+
 	<section class="container">
 
-        <h1>Crée un compte administrateur</h1>
+		<h1>Crée un compte administrateur</h1>
 
 		<form method="POST" class="product-form">
 
@@ -22,8 +29,8 @@
 			</div>
 
 			<div>
-                <button type="submit">Créer l'admin</button>
-            </div>
+				<button type="submit">Créer l'admin</button>
+			</div>
 		</form>
 	</section>
 {% endblock main %}
