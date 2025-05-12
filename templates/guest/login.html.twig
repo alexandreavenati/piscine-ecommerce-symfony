@@ -1,0 +1,35 @@
+{% extends 'guest/base.html.twig' %}
+
+{% block metatitle %}
+	Connectez-vous !
+{% endblock metatitle %}
+
+{% block main %}
+	<section class="container">
+
+        <h1>Se connecter</h1>
+
+        {% if error %}
+        <div class="error-message">
+			{{ error.messageKey }}
+		</div>
+        {% endif %}
+
+		<form method="POST" class="product-form">
+
+			<div class="form-group">
+				<label>Email</label>
+				<input type="email" name="_username">
+			</div>
+
+			<div class="form-group">
+				<label>Mot de passe</label>
+				<input type="password" name="_password">
+			</div>
+
+			<div>
+                <button type="submit">Se connecter</button>
+            </div>
+		</form>
+	</section>
+{% endblock main %}

@@ -1,9 +1,31 @@
-<header>
+<header class="user-header">
 	<nav>
 		<ul>
-			<li><a href="{{ path('home') }}">Accueil</a></li>
-            <li><a href="{{ path('category-list') }}">Catégories</a></li>
-            <li><a href="{{ path('product-list') }}">Produits</a></li>
+			<li>
+				<a href="{{ path('home') }}">Accueil</a>
+			</li>
+			<li>
+				<a href="{{ path('category-list') }}">Catégories</a>
+			</li>
+			<li>
+				<a href="{{ path('product-list') }}">Produits</a>
+			</li>
+			{% if not app.user %}
+				<li>
+					<a href="{{ path('login') }}">Se connecter</a>
+				</li>
+			{% endif %}
+			{% if app.user %}
+				<li>
+					<a href="{{ path('logout') }}">Se déconnecter</a>
+				</li>
+			{% endif %}
 		</ul>
 	</nav>
+
+	{% if app.user %}
+		<p class="user-info">Connecté en tant que
+			{{ app.user.email }}</p>
+	{% endif %}
+
 </header>

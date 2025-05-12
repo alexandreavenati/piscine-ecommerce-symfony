@@ -1,10 +1,20 @@
-<header>
+<header class="admin-header">
 	<nav>
 		<ul>
 			<li><a href="{{ path('home-admin') }}">Accueil</a></li>
             <li><a href="{{ path('category-list') }}">Catégories</a></li>
             <li><a href="{{ path('admin-product-list') }}">Produits</a></li>
 			<li><a href="{{path('admin-create-product')}}">Créer un produit</a></li>
+			{% if app.user %}
+				<li>
+					<a href="{{ path('logout') }}">Se déconnecter</a>
+				</li>
+			{% endif %}
 		</ul>
 	</nav>
+
+	{% if app.user %}
+        <p class="user-info">Connecté en tant que {{ app.user.email }}</p>
+    {% endif %}
+
 </header>
