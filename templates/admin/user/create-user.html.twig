@@ -1,4 +1,4 @@
-{% extends 'guest/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block metatitle %}
 	Créez un compte !
@@ -8,6 +8,16 @@
 
 	{% for message in app.flashes('admin_created') %}
 		<div class="success-message">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error_admin_created') %}
+		<div class="error-message">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error_email_taken') %}
+		<div class="error-message">
 			{{ message }}
 		</div>
 	{% endfor %}
