@@ -21,8 +21,11 @@ class CategoryController extends AbstractController {
     #[Route('/categorie/{id}', name: 'show-category')]
     public function showCategory(CategoryRepository $categoryRepository, $id)
     {
-
         $category = $categoryRepository->find($id);
+
+        if(!$category) {
+            return $this->redirectToRoute('guest-404');
+        }
 
         return $this->render('guest/category/show-category.html.twig', ['category' => $category]);
     }

@@ -36,9 +36,11 @@ class AdminUserController extends AbstractController
 
                 $this->addFlash("admin_created", "Le compte administrateur a été créé.");
                 return $this->redirectToRoute('admin-list-admin');
+
             } catch (UniqueConstraintViolationException $e) {
 
                 $this->addFlash("error_email_taken", "Erreur : email déjà pris.");
+                
             } catch (Exception $e) {
 
                 $this->addFlash("error_admin_created", "Erreur : Impossible de créer l'admin.");
