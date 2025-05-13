@@ -16,6 +16,23 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findByTitleContain(string $search) {
+
+        $queryBuilder = $this->createQueryBuilder('product');
+
+        // Je veux faire une requête de type select à la condition que la recherche du titre du produit ressemble à ce que
+        // l'utilisateur a recherché
+        $query = $queryBuilder->select('product')
+            // Utiliser les paramètres (donc mettre la variable contenant la recherche utilisateur en deux temps)
+            // Permet de sécuriser la requête SQL (éviter mes injections SQL) c'est à dire, vérifier
+            // que la recherche utilisateur ne contient pas de requête SQL (attaque)
+            ->where('product.title LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */

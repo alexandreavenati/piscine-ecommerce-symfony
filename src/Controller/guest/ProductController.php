@@ -36,11 +36,12 @@ class ProductController extends AbstractController {
         return $this->render('guest/product/show-product.html.twig', ['product' => $product, 'category' => $category]);
     }
 
-    #[Route('/resultats-recherche', name: 'search-result')]
-    public function displayResultSearch(Request $request) {
+    #[Route('/resultats-recherche', name: 'search-result', methods: ['GET'])]
+    public function displayResultSearch(Request $request, ProductRepository $productRepository) {
 
         $search = $request->query->get('search');
 
-        dd($search);
+        $productsFound = $productRepository->findByTitleContain($search);
+
     }
 }
