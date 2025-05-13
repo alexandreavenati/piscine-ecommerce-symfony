@@ -1,14 +1,15 @@
 {% extends 'guest/base.html.twig' %}
 
 {% block metatitle %}
-	Tout les produits
+	Résultats de la recherche
 {% endblock metatitle %}
 
 {% block main %}
 	<section class="container">
-		<h2>Tout les produits</h2>
+		<h2>Résultat de la recherche pour
+			{{ search }}</h2>
 		<div class="catalog-list">
-			{% for product in products %}
+			{% for product in productsFound %}
 				<a href="{{ path('show-product', {'id': product.id}) }}">
 					<article class="category {{ product.category.color }}">
 						<h3>{{ product.title }}</h3>

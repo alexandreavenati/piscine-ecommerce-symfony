@@ -15,6 +15,7 @@
 					<p>
 						<b>{{ product.description }}</b>
 					</p>
+					<p>{{ product.price }}€</p>
 					<span>Publié le
 						{{ product.createdAt | date('d/m/Y') }}</span>
 					{% if product.updatedAt %}
