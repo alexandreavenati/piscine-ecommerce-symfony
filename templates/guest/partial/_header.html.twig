@@ -27,6 +27,11 @@
 		</ul>
 	</nav>
 
+	<form action="{{ path('search-result') }}" method="GET">
+		<input type="text" name="search">
+		<button type="submit">Rechercher les produits</button>
+	</form>
+
 	{% if app.user %}
 		<p class="user-info">Connecté en tant que
 			{{ app.user.email }}</p>

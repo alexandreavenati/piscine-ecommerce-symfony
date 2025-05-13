@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends AbstractController {
 
@@ -32,8 +33,14 @@ class ProductController extends AbstractController {
 
         $category = $categoryRepository->findAll();
 
-       
-
         return $this->render('guest/product/show-product.html.twig', ['product' => $product, 'category' => $category]);
+    }
+
+    #[Route('/resultats-recherche', name: 'search-result')]
+    public function displayResultSearch(Request $request) {
+
+        $search = $request->query->get('search');
+
+        dd($search);
     }
 }
