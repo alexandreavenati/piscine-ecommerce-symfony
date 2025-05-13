@@ -16,4 +16,12 @@ class AdminPageController extends AbstractController
     {
         return $this->render('admin/admin-home.html.twig');
     }
+
+    #[Route('/admin/error-404', name:'admin-404')]
+    public function display404() {
+
+        $html = $this->renderView('admin/admin-404.html.twig');
+		
+		return new Response($html, '404');
+    }
 }

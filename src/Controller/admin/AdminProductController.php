@@ -73,15 +73,27 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/admin-products-list.html.twig', ['products' => $products, 'categories' => $category]);
     }
 
-    #[Route('/supprimer-produit/{id}', name: 'admin-delete-product')]
+    #[Route('/admin/supprimer-produit/{id}', name: 'admin-delete-product')]
     public function deleteProduct(ProductRepository $productRepository, EntityManagerInterface $entityManager, $id)
     {
 
         $product = $productRepository->find($id);
-        $entityManager->remove($product);
-        $entityManager->flush();
 
-        $this->addFlash("product_deleted", "Le produit a été supprimé");
+        if (!$product) {
+
+            return $this->redirectToRoute('admin-404');
+        }
+
+        try {
+
+            $entityManager->remove($product);
+            $entityManager->flush();
+
+            $this->addFlash("product_deleted", "Le produit a été supprimé");
+        } catch (Exception $e) {
+
+            $this->addFlash('error_product_deletion', 'Impossible de supprimer le produit');
+        }
 
         return $this->redirectToRoute('admin-product-list');
     }
@@ -98,7 +110,7 @@ class AdminProductController extends AbstractController
         $categories = $categoryRepository->findAll();
 
         if ($request->isMethod('POST')) {
-            
+
             // Récupère les données envoyées via les 'name' du formulaire
             $title = $request->request->get('title');
             $description = $request->request->get('description');

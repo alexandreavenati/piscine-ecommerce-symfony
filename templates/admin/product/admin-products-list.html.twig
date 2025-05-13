@@ -1,53 +1,66 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block metatitle %}
-    Liste des produits
+	Liste des produits
 {% endblock metatitle %}
 
-{% block main %}
-    <section class="container">
-        <h2>Liste des produits</h2>
+{% block flashMessage %}
+	{% for message in app.flashes('product_deleted') %}
+		<div class="success-message">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error_product_deletion') %}
+		<div class="error-message">
+			{{ message }}
+		</div>
+	{% endfor %}
+{% endblock flashMessage %}
 
-        {% if products is not empty %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Titre</th>
-                        <th>Catégorie</th>
-                        <th>Prix (€)</th>
-                        <th>Créé le</th>
-                        <th>Modifié le</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.title }}</td>
-                            <td>{{ product.category.title }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.createdAt | date('d/m/Y H:i') }}</td>
-                            <td>
-                                {% if product.updatedAt is not null %}
-                                    {{ product.updatedAt | date('d/m/Y H:i') }}
-                                {% else %}
-                                    Jamais modifié
-                                {% endif %}
-                            </td>
-                            <td>
-							<a href="{{ path('admin-update-product', {'id': product.id}) }}" class="btn btn-edit">✏️ Modifier</a>
-                                <form method="post" action="{{ path('admin-delete-product', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
-                                    <button type="submit" class="btn btn-delete">🗑️ Supprimer</button>
-                                </form>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>Aucun produit enregistré pour le moment.</p>
-        {% endif %}
-    </section>
+
+{% block main %}
+
+	<section class="container">
+		<h2>Liste des produits</h2>
+
+		{% if products is not empty %}
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Titre</th>
+						<th>Catégorie</th>
+						<th>Prix (€)</th>
+						<th>Créé le</th>
+						<th>Modifié le</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{ product.id }}</td>
+							<td>{{ product.title }}</td>
+							<td>{{ product.category.title }}</td>
+							<td>{{ product.price }}</td>
+							<td>{{ product.createdAt | date('d/m/Y H:i') }}</td>
+							<td>
+								{% if product.updatedAt is not null %}
+									{{ product.updatedAt | date('d/m/Y H:i') }}
+								{% else %}
+									Jamais modifié
+								{% endif %}
+							</td>
+							<td>
+								<a href="{{ path('admin-update-product', {'id': product.id}) }}" class="btn btn-edit">✏️ Modifier</a>
+								<a href="{{ path('admin-delete-product', {'id': product.id}) }}" class="btn btn-delete">🗑️ Supprimer</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<p>Aucun produit enregistré pour le moment.</p>
+		{% endif %}
+	</section>
 {% endblock main %}
