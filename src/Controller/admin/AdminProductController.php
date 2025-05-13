@@ -9,13 +9,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminProductController extends AbstractController
 {
 
     #[Route('/admin/create-product', name: 'admin-create-product')]
-    public function displayCreateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository)
+    public function displayCreateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
     {
 
         // Récupère toutes les catégories enregistrés dans le tableau de la bdd
@@ -64,7 +65,7 @@ class AdminProductController extends AbstractController
     }
 
     #[Route('/admin/produits', name: 'admin-product-list')]
-    public function displayListCategory(ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    public function displayListProduct(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
 
         $products = $productRepository->findAll();
@@ -74,7 +75,7 @@ class AdminProductController extends AbstractController
     }
 
     #[Route('/admin/supprimer-produit/{id}', name: 'admin-delete-product')]
-    public function deleteProduct(ProductRepository $productRepository, EntityManagerInterface $entityManager, $id)
+    public function deleteProduct(ProductRepository $productRepository, EntityManagerInterface $entityManager, int $id): Response
     {
 
         $product = $productRepository->find($id);
@@ -99,7 +100,7 @@ class AdminProductController extends AbstractController
     }
 
     #[Route('/admin/update-product/{id}', name: 'admin-update-product')]
-    public function displayUpdateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, ProductRepository $productRepository, $id)
+    public function displayUpdateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, ProductRepository $productRepository, int $id): Response
     {
         $product = $productRepository->find($id);
         if (!$product) {

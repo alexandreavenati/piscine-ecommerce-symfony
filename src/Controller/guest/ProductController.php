@@ -11,7 +11,7 @@ use App\Repository\ProductRepository;
 class ProductController extends AbstractController {
 
     #[Route('/produits', name: 'product-list')]
-    public function displayListCategory(ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    public function displayListProducts(ProductRepository $productRepository, CategoryRepository $categoryRepository):Response
     {
 
         $products = $productRepository->findBy(['isPublished' => true]);
@@ -21,7 +21,7 @@ class ProductController extends AbstractController {
     }
 
     #[Route('/produit/{id}', name: 'show-product')]
-    public function showCategory(ProductRepository $productRepository, CategoryRepository $categoryRepository, $id)
+    public function showProduct(ProductRepository $productRepository, CategoryRepository $categoryRepository, int $id): Response
     {
 
         $product = $productRepository->find($id);

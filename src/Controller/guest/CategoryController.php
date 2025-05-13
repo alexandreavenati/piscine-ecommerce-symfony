@@ -10,7 +10,7 @@ use App\Repository\CategoryRepository;
 class CategoryController extends AbstractController {
 
     #[Route('/categories', name: 'category-list')]
-    public function displayListCategory(CategoryRepository $categoryRepository)
+    public function displayListCategory(CategoryRepository $categoryRepository): Response
     {
 
         $categories = $categoryRepository->findAll();
@@ -19,7 +19,7 @@ class CategoryController extends AbstractController {
     }
 
     #[Route('/categorie/{id}', name: 'show-category')]
-    public function showCategory(CategoryRepository $categoryRepository, $id)
+    public function showCategory(CategoryRepository $categoryRepository, int $id): Response
     {
         $category = $categoryRepository->find($id);
 

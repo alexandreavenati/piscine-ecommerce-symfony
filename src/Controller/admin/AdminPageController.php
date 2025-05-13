@@ -12,13 +12,13 @@ class AdminPageController extends AbstractController
 
     #[Route('/admin', name: 'home-admin')]
     #[IsGranted('ROLE_ADMIN')]
-    public function displayHome()
+    public function displayHome(): Response
     {
         return $this->render('admin/admin-home.html.twig');
     }
 
     #[Route('/admin/error-404', name:'admin-404')]
-    public function display404() {
+    public function display404(): Response {
 
         $html = $this->renderView('admin/admin-404.html.twig');
 		

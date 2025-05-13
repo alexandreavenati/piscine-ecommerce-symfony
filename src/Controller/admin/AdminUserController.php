@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,7 +17,7 @@ class AdminUserController extends AbstractController
 {
 
     #[Route('/admin/create-user', name: 'admin-create-user')]
-    public function displayCreateUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
+    public function displayCreateUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
 
         if ($request->isMethod('POST')) {
@@ -40,7 +41,7 @@ class AdminUserController extends AbstractController
             } catch (UniqueConstraintViolationException $e) {
 
                 $this->addFlash("error_email_taken", "Erreur : email déjà pris.");
-                
+
             } catch (Exception $e) {
 
                 $this->addFlash("error_admin_created", "Erreur : Impossible de créer l'admin.");
@@ -51,7 +52,7 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('/admin/list-admin', name:'admin-list-admin')]
-    public function displayListAdmins(UserRepository $userRepository) {
+    public function displayListAdmins(UserRepository $userRepository): Response {
 
         $users = $userRepository->findAll();
 
