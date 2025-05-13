@@ -5,6 +5,13 @@
 {% endblock metatitle %}
 
 {% block main %}
+
+	{% for message in app.flashes('admin_created') %}
+		<div class="success-message">
+			{{ message }}
+		</div>
+	{% endfor %}
+
 	<section class="container">
 		<h2>Liste des produits</h2>
 
@@ -22,7 +29,10 @@
 							<td>{{ user.email }}</td>
 							<td>
 								{% for role in user.roles %}
-									{{ role }}{% if not loop.last %}, {% endif %}
+									{# Si ce n'est PAS le dernier rôle, on ajoute une virgule #}
+									{{ role }}
+									{% if not loop.last %},
+									{% endif %}
 								{% endfor %}
 							</td>
 
