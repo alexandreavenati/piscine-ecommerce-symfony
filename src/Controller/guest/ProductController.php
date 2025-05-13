@@ -43,5 +43,6 @@ class ProductController extends AbstractController {
 
         $productsFound = $productRepository->findByTitleContain($search);
 
+        dd($productsFound);
     }
 }
