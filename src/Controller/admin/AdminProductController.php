@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminProductController extends AbstractController
 {
 
-    #[Route('/admin/create-product', name: 'admin-create-product')]
+    #[Route('/admin/create-product', name: 'admin-create-product', methods: ['GET', 'POST'])]
     public function displayCreateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
     {
 
@@ -64,7 +64,7 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/create-product.html.twig', ['categories' => $category]);
     }
 
-    #[Route('/admin/produits', name: 'admin-product-list')]
+    #[Route('/admin/produits', name: 'admin-product-list', methods: ['GET'])]
     public function displayListProduct(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
 
@@ -74,7 +74,7 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/admin-products-list.html.twig', ['products' => $products, 'categories' => $category]);
     }
 
-    #[Route('/admin/supprimer-produit/{id}', name: 'admin-delete-product')]
+    #[Route('/admin/supprimer-produit/{id}', name: 'admin-delete-product', methods: ['GET'])]
     public function deleteProduct(ProductRepository $productRepository, EntityManagerInterface $entityManager, int $id): Response
     {
 
@@ -99,7 +99,7 @@ class AdminProductController extends AbstractController
         return $this->redirectToRoute('admin-product-list');
     }
 
-    #[Route('/admin/update-product/{id}', name: 'admin-update-product')]
+    #[Route('/admin/update-product/{id}', name: 'admin-update-product', methods: ['GET', 'POST'])]
     public function displayUpdateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, ProductRepository $productRepository, int $id): Response
     {
         $product = $productRepository->find($id);

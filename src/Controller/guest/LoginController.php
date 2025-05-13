@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
 
-    #[Route('/login', name: 'login')]
+    #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function displayLogin(AuthenticationUtils $authenticationUtils): Response
     {
 
@@ -19,7 +19,7 @@ class LoginController extends AbstractController
         return $this->render('guest/login.html.twig', ['error' => $error]);
     }
 
-    #[Route('/redirect-after-login', name: 'redirect_after_login')]
+    #[Route('/redirect-after-login', name: 'redirect_after_login', methods: ['GET'])]
     public function redirectAfterLogin(): Response
     {
         $user = $this->getUser();
@@ -32,7 +32,7 @@ class LoginController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-    #[Route('/logout', name:'logout')]
+    #[Route('/logout', name:'logout', methods: ['GET'])]
     public function logout() {
         
     }

@@ -10,7 +10,7 @@ use App\Repository\ProductRepository;
 
 class ProductController extends AbstractController {
 
-    #[Route('/produits', name: 'product-list')]
+    #[Route('/produits', name: 'product-list', methods: ['GET'])]
     public function displayListProducts(ProductRepository $productRepository, CategoryRepository $categoryRepository):Response
     {
 
@@ -20,7 +20,7 @@ class ProductController extends AbstractController {
         return $this->render('guest/product/products-list.html.twig', ['products' => $products, 'categories' => $category]);
     }
 
-    #[Route('/produit/{id}', name: 'show-product')]
+    #[Route('/produit/{id}', name: 'show-product', methods: ['GET'])]
     public function showProduct(ProductRepository $productRepository, CategoryRepository $categoryRepository, int $id): Response
     {
 

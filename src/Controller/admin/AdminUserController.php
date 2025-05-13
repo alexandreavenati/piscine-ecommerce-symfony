@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUserController extends AbstractController
 {
 
-    #[Route('/admin/create-user', name: 'admin-create-user')]
+    #[Route('/admin/create-user', name: 'admin-create-user', methods: ['GET', 'POST'])]
     public function displayCreateUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
 
@@ -51,7 +51,7 @@ class AdminUserController extends AbstractController
         return $this->render('/admin/user/create-user.html.twig');
     }
 
-    #[Route('/admin/list-admin', name:'admin-list-admin')]
+    #[Route('/admin/list-admin', name:'admin-list-admin', methods: ['GET'])]
     public function displayListAdmins(UserRepository $userRepository): Response {
 
         $users = $userRepository->findAll();

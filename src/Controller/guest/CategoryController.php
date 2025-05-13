@@ -9,7 +9,7 @@ use App\Repository\CategoryRepository;
 
 class CategoryController extends AbstractController {
 
-    #[Route('/categories', name: 'category-list')]
+    #[Route('/categories', name: 'category-list', methods: ['GET'])]
     public function displayListCategory(CategoryRepository $categoryRepository): Response
     {
 
@@ -18,7 +18,7 @@ class CategoryController extends AbstractController {
         return $this->render('guest/category/categories-list.html.twig', ['categories' => $categories]);
     }
 
-    #[Route('/categorie/{id}', name: 'show-category')]
+    #[Route('/categorie/{id}', name: 'show-category', methods: ['GET'])]
     public function showCategory(CategoryRepository $categoryRepository, int $id): Response
     {
         $category = $categoryRepository->find($id);
