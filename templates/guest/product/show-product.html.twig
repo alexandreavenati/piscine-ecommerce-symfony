@@ -15,6 +15,11 @@
 					<p>
 						<b>{{ product.description }}</b>
 					</p>
+					{% if product.image is not null %}
+						<div class="product-img">
+							<img src="{{ asset('uploads/' ~ product.image) }}" alt="image de {{ product.title }}">
+						</div>
+					{% endif %}
 					<p>{{ product.price }}€</p>
 					<span>Publié le
 						{{ product.createdAt | date('d/m/Y') }}</span>

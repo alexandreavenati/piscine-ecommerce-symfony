@@ -8,6 +8,7 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,7 @@ class AdminProductController extends AbstractController
 {
 
     #[Route('/admin/create-product', name: 'admin-create-product', methods: ['GET', 'POST'])]
-    public function displayCreateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
+    public function displayCreateProduct(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, ParameterBagInterface $parameterBag): Response
     {
 
         // Récupère toutes les catégories enregistrés dans le tableau de la bdd
@@ -39,6 +40,19 @@ class AdminProductController extends AbstractController
             // On récupère l'id de la catégorie sélectionnée
             $categoryId = $request->request->get('category');
 
+            // je récupère l'image dans le formulaire avec la propriété files
+			$image = $request->files->get('image');
+
+			// si une image a bien été envoyée
+			if ($image) {
+				// je créé un nouveau nom unique pour l'image et je rajoute l'extension
+				// originale de l'image (.jpg ou .png etc)
+				$imageNewName = uniqid() . '.' . $image->guessExtension();
+				// je déplace l'image dans le dossier /public/uploads (je récupère le chemin du dossier grâce à la 
+                // classe parameterbag) et je la renomme avec le nouveau nom
+				$image->move($parameterBag->get('kernel.project_dir').'/public/uploads', $imageNewName);
+			}
+
             // On récupère la catégorie complète liée à l'id
             $category = $categoryRepository->find($categoryId);
 
@@ -48,7 +62,7 @@ class AdminProductController extends AbstractController
             }
 
             try {
-                $product = new Product($title, $description, $price, $isPublished,  $category);
+                $product = new Product($title, $description, $price, $isPublished, $category, $imageNewName);
                 // sauvegarde le produit créé
                 $entityManager->persist($product);
                 // pousse le produit créé dans la base de donnée

@@ -41,7 +41,7 @@ class Product
     private ?string $image = null;
 
     // méthode pour créer un produit
-    public function __construct(string $title, string $description, float $price, bool $isPublished, Category $category)
+    public function __construct(string $title, string $description, float $price, bool $isPublished, Category $category, string $imageNewName)
     {
 
         if (strlen(trim($title)) < 3) {
@@ -64,6 +64,7 @@ class Product
         $this->price = $price;
         $this->isPublished = $isPublished;
         $this->category = $category;
+        $this->image = $imageNewName;
 
         // données remplies automatiquement lors de l'envoi
         $this->createdAt = new \DateTime();
