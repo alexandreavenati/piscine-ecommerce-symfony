@@ -69,6 +69,7 @@ class AdminProductController extends AbstractController
                 $entityManager->flush();
                 // msg flash
                 $this->addFlash('product_created', 'Produit : "' . $product->getTitle() . '" a été enregistré.');
+                return $this->redirectToRoute('admin-product-list');
             } catch (Exception $e) {
                 $this->addFlash('error_product_created', 'Erreur lors de la création du produit : ' . $e->getMessage());
                 return $this->redirectToRoute('admin-create-product');

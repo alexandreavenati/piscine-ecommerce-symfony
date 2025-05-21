@@ -27,7 +27,9 @@ class ProductRepository extends ServiceEntityRepository
             // Permet de sécuriser la requête SQL (éviter mes injections SQL) c'est à dire, vérifier
             // que la recherche utilisateur ne contient pas de requête SQL (attaque)
             ->where('product.title LIKE :search')
+            ->andWhere('product.isPublished = :isPublished') 
             ->setParameter('search', '%'.$search.'%')
+            ->setParameter('isPublished', true)
             ->getQuery();
 
         return $query->getResult();

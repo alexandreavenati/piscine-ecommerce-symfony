@@ -4,7 +4,14 @@
 	Liste des produits
 {% endblock metatitle %}
 
+
 {% block flashMessage %}
+	{% for message in app.flashes('product_created') %}
+		<div class="success-message">
+			{{ message }}
+		</div>
+	{% endfor %}
+
 	{% for message in app.flashes('product_deleted') %}
 		<div class="success-message">
 			{{ message }}
